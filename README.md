@@ -1,1 +1,2 @@
 # Wood-Fire
+The application is developed to provide end users of various bbq experience a great experience.  User's will be able to check off what ingredients they have for the type of bbq they are interested.  The application will in turn display a list of items needed which will in turn save the user time and money.  Saving time by knowing exactly what is needed which prevents any unneccassary trips to the grocery store.  Saving money by not purchasing any extra items that the user already has.  
