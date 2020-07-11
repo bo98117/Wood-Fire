@@ -1,18 +1,11 @@
 package wood.fire;
 
-/**
- * @Course: SDEV 450 ~ Enterprise Java Programming
- * @Author Name: Bophal Sin
- * @Assignment Name: wood.fire
- * @Date: Jun 18, 2020
- * @Description:
- */
-//Imports
-import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,6 +13,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -27,26 +21,21 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-//Begin Class WoodFire
+import static wood.fire.WoodFire.buttonEffect;
 
-public class WoodFire extends Application {
+//Begin Subclass DinoIngredients
+public class DinoIngredients {
 
-    static DinoRibs dino = new DinoRibs();
-    static DinoIngredients dinoIngredients = new DinoIngredients();
-    static DinoTechnique dinoTechnique = new DinoTechnique();
+    static Stage stage1 = new Stage();
     
-    static BabyBackRibs babyBackRibs = new BabyBackRibs();
-    static BabyBackRibsIngredients babyBackIngredients = new BabyBackRibsIngredients();
-    static BabyBackRibsTechnique babyBackTechnique = new BabyBackRibsTechnique();
+    static Label lblsalt = new Label("Salt");
+    static Label lblpepper = new Label("Pepper");
     
-    static Brisket brisket = new Brisket();
-    static BrisketIngredients brisketIngredients = new BrisketIngredients();
-    static BrisketTechnique brisketTechnique = new BrisketTechnique();
+    CheckBox saltBox = new CheckBox();
+    CheckBox pepperBox = new CheckBox();
     
-    static Buttons buttonEffect = new Buttons();
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
+    
+    public void dinoIngredients() {
 
         //Create a borderpane
         BorderPane borderPane = new BorderPane();
@@ -54,64 +43,68 @@ public class WoodFire extends Application {
         borderPane.setStyle("-fx-border-color: black;\n");
         borderPane.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(0), Insets.EMPTY)));
 
+        GridPane gpaneIngredients = new GridPane();
+        
+        gpaneIngredients.setAlignment(Pos.CENTER_LEFT);  //set the properties
+        gpaneIngredients.setPadding(new Insets(11.5, 12.5, 13.5, 14.5));
+        gpaneIngredients.setHgap(5.5);
+        gpaneIngredients.setVgap(5.5);
+        
+        gpaneIngredients.add(lblsalt, 1, 0);
+        gpaneIngredients.add(saltBox, 2, 0);
+        gpaneIngredients.add(lblpepper, 1, 1);
+        gpaneIngredients.add(pepperBox, 2, 1);
+        
+        
         //Set the borderpane
         borderPane.setTop(getVBoxTop());
-        borderPane.setBottom(getHBoxImage());
-        borderPane.setCenter(getHBox());
-
-        //Create a scene and place it into the stage
+        borderPane.setCenter(getHBoxImage());
+        borderPane.setBottom(getHBox());
+        borderPane.setRight(gpaneIngredients);
+        
         Scene scene = new Scene(borderPane, 700, 700);
-        primaryStage.setTitle("Wood & Fire");
-        primaryStage.setScene(scene);
-        primaryStage.show();
 
+        stage1.setTitle("Wood & Fire");
+        stage1.setScene(scene);
+        stage1.show();
     }
-
-    //Main method
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    //HBox method for buttons
+    
+   
+     //HBox method for buttons
     private HBox getHBox() {
-        HBox hBox = new HBox(35);
+        HBox hBox = new HBox(15);
         hBox.setPadding(new Insets(15, 15, 15, 15));
         hBox.setAlignment(Pos.CENTER);
         
-        Button btdinoRibs = new Button("Dino Ribs");
-        btdinoRibs.setStyle(buttonEffect.returnButton());
-        hBox.getChildren().add(btdinoRibs);
-        btdinoRibs.setOnAction(e -> {
-            dino.dino();
+        Button btback = new Button("Back");
+        btback.setStyle(buttonEffect.returnButton());
+        hBox.getChildren().add(btback);
+        btback.setOnAction(e -> {
+           stage1.close(); 
         });
-
-        Button btbabyBackRibs = new Button("Baby Back Ribs");
-        btbabyBackRibs.setStyle(buttonEffect.returnButton());
-        hBox.getChildren().add(btbabyBackRibs);
-        btbabyBackRibs.setOnAction(e -> {
-           babyBackRibs.babyBackRibs();
-        });
-
-        Button btbrisket = new Button("Brisket");
-        btbrisket.setStyle(buttonEffect.returnButton());
-        hBox.getChildren().add(btbrisket);
-        btbrisket.setOnAction(e -> {
-           brisket.brisket(); 
+        
+        Button btexit = new Button("Exit");
+        btexit.setStyle(buttonEffect.returnButton());
+        hBox.getChildren().add(btexit);
+        btexit.setOnAction(e -> {
+           System.exit(0); 
         });
 
         return hBox;
     }
-
+    
     //HBox method for the image
     private HBox getHBoxImage() {
         HBox hBox1 = new HBox(15);
         hBox1.setPadding(new Insets(15, 15, 15, 15));
-        ImageView imageView = new ImageView(new Image("/ribs4.jpg"));
+        ImageView imageView = new ImageView(new Image("/beef ribs.jpg"));
+        imageView.setFitHeight(400);
+        imageView.setFitWidth(400);
         hBox1.getChildren().add(imageView);
 
         return hBox1;
     }
-
+    
     //VBox method to set the text on top
     private VBox getVBoxTop() {
         DropShadow ds = new DropShadow();
@@ -119,7 +112,7 @@ public class WoodFire extends Application {
         ds.setColor(Color.color(0.4f, 0.4f, 0.4f));
 
         VBox vBoxT = new VBox();
-        Text topText = new Text("Wood & Fire");
+        Text topText = new Text("Ingredients");
 
         topText.setEffect(ds);
         topText.setCache(true);
@@ -133,8 +126,7 @@ public class WoodFire extends Application {
         topText.setStroke(Color.DARKRED);
         topText.setStrokeWidth(2);
         vBoxT.getChildren().addAll(topText);
-        
         return vBoxT;
     }
     
-} //End Class WoodFire
+} //End Subclass DinoIngredients
